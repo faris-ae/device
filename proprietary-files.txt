@@ -89,6 +89,10 @@ vendor/etc/audio/sku_yupik/mixer_paths_overlay_static.xml
 vendor/etc/audio/sku_yupik/mixer_paths_yupikidp.xml
 vendor/etc/audio/sku_yupik/sound_trigger_mixer_paths_yupikidp.xml
 vendor/etc/audio/sku_yupik/sound_trigger_platform_info.xml
+vendor/etc/audio_policy_engine_configuration.xml
+vendor/etc/audio_policy_engine_default_stream_volumes.xml
+vendor/etc/audio_policy_engine_product_strategies.xml
+vendor/etc/audio_policy_engine_stream_volumes.xml
 
 # Audio Hardware
 vendor/lib/hw/audio.primary.lahaina.so
