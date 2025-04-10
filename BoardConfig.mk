@@ -15,9 +15,6 @@ TARGET_OTA_ASSERT_DEVICE := redwood|redwoodin
 # Board
 TARGET_BOOTLOADER_BOARD_NAME := redwood
 
-# Ignore overriding commands errors
-BUILD_BROKEN_DUP_RULES := true
-
 # Camera
 TARGET_CAMERA_OVERRIDE_FORMAT_FROM_RESERVED := true
 
