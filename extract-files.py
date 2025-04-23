@@ -56,6 +56,8 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('.*dolby.*\n?', ''),
     ('vendor/etc/camera/pureShot_parameter.xml', 'vendor/etc/camera/pureView_parameter.xml'): blob_fixup()
         .regex_replace(r'=(\d+)>', r'="\1">'),
+    'vendor/etc/public.libraries.txt': blob_fixup()
+        .regex_replace('.*libqti-perfd-client.so.*\n?', ''),
     'vendor/lib64/android.hardware.secure_element@1.0-impl.so': blob_fixup()
         .remove_needed('android.hidl.base@1.0.so'),
     ('vendor/lib64/mediadrm/libwvdrmengine.so', 'vendor/lib64/libwvhidl.so'): blob_fixup()
