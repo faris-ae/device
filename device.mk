@@ -327,7 +327,6 @@ DEVICE_PACKAGE_OVERLAYS += \
 # Overlays-RRO
 PRODUCT_PACKAGES += \
     CarrierConfigOverlay \
-    NcmTetheringOverlay \
     redwoodCNSettingsProviderOverlay \
     redwoodCNWifiOverlay \
     redwoodGLSettingsProviderOverlay \
