@@ -137,8 +137,8 @@ on boot
     chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dimlayer_exposure
 
     # Set high brightness mode permissions
-    chown system system /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm_enabled
-    chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm_enabled
+    chown system system /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm
+    chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm
 
     write /dev/cpuset/audio-app/cpus 1-2
     # init the  cpuset value for the camera background,don't change the oder
