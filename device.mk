@@ -25,7 +25,6 @@ $(call inherit-product-if-exists, packages/apps/ViPER4AndroidFX/config.mk)
 
 # MiuiCamera
 $(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/products/miuicamera.mk)
-$(call soong_config_set,camera,package_name,com.android.camera)
 
 # API
 BOARD_SHIPPING_API_LEVEL := 31
