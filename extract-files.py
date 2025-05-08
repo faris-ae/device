@@ -56,6 +56,10 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('.*dolby.*\n?', ''),
     ('vendor/etc/camera/pureShot_parameter.xml', 'vendor/etc/camera/pureView_parameter.xml'): blob_fixup()
         .regex_replace(r'=(\d+)>', r'="\1">'),
+    ('vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc', 'vendor/etc/init/vendor.qti.media.c2@1.0-service.rc'): blob_fixup()
+        .regex_replace('writepid /dev/cpuset/foreground/tasks', 'task_profiles ProcessCapacityHigh'),
+    ('vendor/etc/init/android.hardware.neuralnetworks@1.3-service-qti.rc'): blob_fixup()
+        .regex_replace('writepid /dev/stune/nnapi-hal/tasks', 'task_profiles NNApiHALPerformance'),
     'vendor/etc/public.libraries.txt': blob_fixup()
         .regex_replace('.*libqti-perfd-client.so.*\n?', ''),
     'vendor/lib64/android.hardware.secure_element@1.0-impl.so': blob_fixup()
