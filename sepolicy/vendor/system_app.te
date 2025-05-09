@@ -1,2 +1,13 @@
 # Aware
 get_prop(system_app, vendor_aware_available_prop)
+
+# Parts
+allow system_app sysfs_thermal:file write;
+
+# DC Dimming and HBM
+allow system_app vendor_sysfs_graphics:dir { search open read };
+allow system_app vendor_sysfs_graphics:file { read write open setattr getattr };
+
+# HTSR
+allow system_app sysfs_htsr:file { read write open setattr getattr };
+allow system_app sysfs_htsr:dir { search open read };
