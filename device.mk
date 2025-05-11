@@ -156,10 +156,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     dalvik.vm.image-dex2oat-cpu-set=0,1,2,3,4,5,6,7 \
     dalvik.vm.image-dex2oat-threads=8
 
-# Dolby Config File
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/dolby/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml
-
 # Dolby Props
 PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.dolby.dax.version=DAX3_3.6.1.6_r1 \
