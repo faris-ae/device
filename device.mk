@@ -126,7 +126,7 @@ PRODUCT_COPY_FILES += \
 
 # Camera Extensions permissions
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/permissions/camerax-vendor-extensions.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/camerax-vendor-extensions.xml
+    $(LOCAL_PATH)/configs/permissions/camerax-vendor-extensions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/camerax-vendor-extensions.xml
 
 # DebugFS
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
