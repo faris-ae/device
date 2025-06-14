@@ -153,29 +153,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     dalvik.vm.image-dex2oat-cpu-set=0,1,2,3,4,5,6,7 \
     dalvik.vm.image-dex2oat-threads=8
 
-# Dolby Props
-PRODUCT_VENDOR_PROPERTIES += \
-    ro.vendor.dolby.dax.version=DAX3_3.6.1.6_r1 \
-    ro.vendor.audio.dolby.dax.version=DAX3_3.6 \
-    ro.vendor.audio.dolby.dax.support=true \
-    ro.vendor.audio.dolby.surround.enable=true
-
-# Dolby Effects Props
-PRODUCT_VENDOR_PROPERTIES += \
-    persist.vendor.audio.delta.refresh=true
-
-# Dolby MediaCodecs Loading Support (Overwrites Vendor files)
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media/dolby/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
-
-# Dolby VNDK libs
-PRODUCT_PACKAGES += \
-    libstagefright_foundation-v33
-
 # Dolby
-PRODUCT_PACKAGES += \
-    DSPVolumeSynchronizer \
-    XiaomiDolby
+$(call inherit-product-if-exists, hardware/dolby/dolby.mk)
 
 # DRM
 PRODUCT_PACKAGES += \

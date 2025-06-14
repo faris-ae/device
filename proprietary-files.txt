@@ -741,38 +741,6 @@ vendor/etc/init/dpmQmiMgr.rc
 vendor/lib64/com.qualcomm.qti.dpm.api@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libdpmqmihal.so
 
-# Dolby Atmos
-configs/dolby/dax-default.xml:vendor/etc/dolby/dax-default.xml
-vendor/bin/hw/vendor.dolby.hardware.dms@2.0-service
-vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc
-vendor/etc/vintf/manifest/manifest_vendor.dolby.hardware.dms.xml
-vendor/lib/libdapparamstorage.so
-vendor/lib/libdeccfg.so
-vendor/lib/vendor.dolby.hardware.dms@2.0.so
-vendor/lib64/libdapparamstorage.so
-vendor/lib64/libdeccfg.so
-vendor/lib64/libdlbdsservice.so
-vendor/lib64/vendor.dolby.hardware.dms@2.0-impl.so
-vendor/lib64/vendor.dolby.hardware.dms@2.0.so
-
-# Dolby SoundFX
-vendor/lib/soundfx/libhwdap.so
-vendor/lib/soundfx/libswdap.so
-vendor/lib/soundfx/libswgamedap.so
-vendor/lib/soundfx/libswvqe.so
-vendor/lib64/soundfx/libhwdap.so
-vendor/lib64/soundfx/libswdap.so
-vendor/lib64/soundfx/libswgamedap.so
-vendor/lib64/soundfx/libswvqe.so
-
-# Dolby MediaCodecs
-vendor/lib/libstagefright_soft_ac4dec.so
-vendor/lib/libstagefright_soft_ddpdec.so
-vendor/lib/libstagefrightdolby.so
-vendor/lib64/libstagefright_soft_ac4dec.so
-vendor/lib64/libstagefright_soft_ddpdec.so
-vendor/lib64/libstagefrightdolby.so
-
 # DRM
 vendor/bin/qseecomd
 vendor/etc/gpfspath_oem_config.xml
@@ -1003,12 +971,12 @@ system_ext/lib64/libmmosal.so
 system_ext/lib64/libmmparser_lite.so
 vendor/bin/hw/vendor.qti.media.c2@1.0-service
 vendor/etc/init/vendor.qti.media.c2@1.0-service.rc
-vendor/etc/media_codecs_lahaina.xml
-vendor/etc/media_codecs_system_default_yupik.xml
-vendor/etc/media_codecs_yupik_v1.xml
+vendor/etc/media/video_system_specs.json
+vendor/etc/media_lahaina/video_system_specs.json
+vendor/etc/media_yupik_v1/video_system_specs.json
 vendor/etc/seccomp_policy/codec2.vendor.base-arm.policy
 vendor/etc/seccomp_policy/codec2.vendor.ext-arm.policy
-vendor/etc/vintf/manifest/c2_manifest_vendor.xml
+vendor/etc/video_system_specs.json
 vendor/lib/libmmosal.so;MODULE_SUFFIX=_vendor
 vendor/lib/libqc2vppfilter.so
 vendor/lib/libqcodec2_base.so
@@ -1081,14 +1049,24 @@ product/media/audio/ringtones/ToyRobot.ogg
 product/media/audio/ringtones/Vigor.ogg
 
 # Media configs
-vendor/etc/media/video_system_specs.json
+vendor/etc/media_codecs.xml
+vendor/etc/media_codecs_lahaina.xml
+vendor/etc/media_codecs_lahaina_vendor.xml
+vendor/etc/media_codecs_performance.xml
 vendor/etc/media_codecs_performance_lahaina.xml
+vendor/etc/media_codecs_performance_lahaina_vendor.xml
 vendor/etc/media_codecs_performance_yupik_v1.xml
-vendor/etc/media_lahaina/video_system_specs.json
+vendor/etc/media_codecs_system_default.xml
+vendor/etc/media_codecs_system_default_lahaina.xml
+vendor/etc/media_codecs_system_default_yupik.xml
+vendor/etc/media_codecs_yupik_v1.xml
+vendor/etc/media_profiles.xml
+vendor/etc/media_profiles_V1_0.xml
 vendor/etc/media_profiles_lahaina.xml
+vendor/etc/media_profiles_lahaina_vendor.xml
+vendor/etc/media_profiles_vendor.xml
 vendor/etc/media_profiles_yupik_v1.xml
-vendor/etc/media_yupik_v1/video_system_specs.json
-vendor/etc/video_system_specs.json
+vendor/etc/vintf/manifest/c2_manifest_vendor.xml
 
 # Media (VPU firmware)
 vendor/firmware/vpu20_1v.b00

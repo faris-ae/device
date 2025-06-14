@@ -50,18 +50,16 @@ lib_fixups: lib_fixups_user_type = {
 blob_fixups: blob_fixups_user_type = {
     ('vendor/etc/media_lahaina/video_system_specs.json', 'vendor/etc/media_yupik_v1/video_system_specs.json'): blob_fixup()
         .regex_replace('"max_retry_alloc_output_timeout": 10000,', '"max_retry_alloc_output_timeout": 0,'),
-    'vendor/etc/dolby/dax-default.xml': blob_fixup()
-        .regex_replace('<volume-leveler-enable value="true"', '<volume-leveler-enable value="false"'),
     'vendor/etc/vintf/manifest/c2_manifest_vendor.xml': blob_fixup()
         .regex_replace('.*ozoaudio.*\n?', '')
         .regex_replace('.*dolby.*\n?', ''),
     ('vendor/etc/camera/pureShot_parameter.xml', 'vendor/etc/camera/pureView_parameter.xml'): blob_fixup()
         .regex_replace(r'=(\d+)>', r'="\1">'),
-    ('vendor/etc/media_codecs_lahaina.xml', 'vendor/etc/media_codecs_system_default_yupik.xml'): blob_fixup()
+    ('vendor/etc/media_codecs.xml', 'vendor/etc/media_codecs_lahaina.xml', 'vendor/etc/media_codecs_system_default.xml', 'vendor/etc/media_codecs_system_default_lahaina.xml', 'vendor/etc/media_codecs_system_default_yupik.xml'): blob_fixup()
         .regex_replace('.+media_codecs_(c2_audio|google_audio|google_c2|google_telephony|vendor_audio).+\n', '')
         .regex_replace(r'(?s)(<Settings.*?>)',r'\1\n        <Domain name="telephony" enabled="true" />'),
-    ('vendor/etc/media_codecs_yupik_v1.xml'): blob_fixup()
-        .regex_replace('.+media_codecs_with_dolby_yupik.+\n', ''),
+    ('vendor/etc/media_codecs_yupik_v1.xml', 'vendor/etc/media_codecs_lahaina_vendor.xml'): blob_fixup()
+        .regex_replace('.+media_codecs_with_dolby.+\n', ''),
     ('vendor/etc/init/android.hardware.drm@1.3-service.widevine.rc', 'vendor/etc/init/vendor.qti.media.c2@1.0-service.rc'): blob_fixup()
         .regex_replace('writepid /dev/cpuset/foreground/tasks', 'task_profiles ProcessCapacityHigh'),
     ('vendor/etc/init/android.hardware.neuralnetworks@1.3-service-qti.rc'): blob_fixup()
@@ -97,8 +95,6 @@ blob_fixups: blob_fixups_user_type = {
         .clear_symbol_version('remote_handle_open'),
     'vendor/lib64/libsensor_cal_v2.so': blob_fixup()
         .add_needed('libjsoncpp_shim.so'),
-    ('vendor/lib/libstagefright_soft_ac4dec.so', 'vendor/lib/libstagefright_soft_ddpdec.so' 'vendor/lib/libstagefrightdolby.so', 'vendor/lib64/libdlbdsservice.so', 'vendor/lib64/libstagefright_soft_ac4dec.so', 'vendor/lib64/libstagefright_soft_ddpdec.so', 'vendor/lib64/libstagefrightdolby.so'): blob_fixup()
-         .replace_needed('libstagefright_foundation.so', 'libstagefright_foundation-v33.so'),
 }  # fmt: skip
 
 
