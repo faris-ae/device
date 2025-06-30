@@ -224,6 +224,7 @@ PRODUCT_COPY_FILES += \
 
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := true
+OVERRIDE_ENABLE_UFFD_GC := true
 
 # Lineage Health
 $(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
