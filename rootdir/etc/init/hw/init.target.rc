@@ -144,14 +144,6 @@ on boot
     chown system system /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm
     chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm
 
-    # Allow system to modify brightness
-    chown system system /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/brightness
-    chown system system /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/max_brightness
-    
-    # Allow system to modify High Touch Sampling Rate
-    chown system system /sys/devices/virtual/touch/touch_dev/bump_sample_rate
-    chmod 0660 /sys/devices/virtual/touch/touch_dev/bump_sample_rate
-
     write /dev/cpuset/audio-app/cpus 1-2
     # init the  cpuset value for the camera background,don't change the oder
     write /dev/cpuset/camera-background/background/cpus 0-2
