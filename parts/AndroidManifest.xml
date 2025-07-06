@@ -27,6 +27,10 @@
 
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="30"/>
+
     <application
         android:label="@string/device_settings_app_name"
         android:persistent="true"
@@ -34,10 +38,16 @@
         android:directBootAware="true"
         android:theme="@style/Theme.SubSettingsBase">
 
+        <receiver android:name=".BootCompletedReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".doze.DozeSettingsActivity"
-            android:label="@string/ambient_display_title"
-            android:exported="true">
+            android:label="@string/ambient_display_title">
         </activity>
 
         <service android:name=".doze.DozeService"
@@ -46,8 +56,7 @@
 
         <activity
             android:name=".thermal.ThermalActivity"
-            android:label="@string/thermal_title"
-            android:exported="true">
+            android:label="@string/thermal_title">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
@@ -104,8 +113,7 @@
 
         <activity
             android:name=".speaker.ClearSpeakerActivity" 
-            android:label="@string/clear_speaker_title"
-            android:exported="true">
+            android:label="@string/clear_speaker_title">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>

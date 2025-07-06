@@ -31,7 +31,7 @@ import org.lineageos.settings.refreshrate.RefreshUtils;
 import org.lineageos.settings.utils.FileUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
-    private static final boolean DEBUG = true; // Set to true for debugging purposes
+    private static final boolean DEBUG = false;
     private static final String TAG = "XiaomiParts";
     private static final String DC_DIMMING_ENABLE_KEY = "dc_dimming_enable";
     private static final String DC_DIMMING_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display-primary/dimlayer_exposure";
@@ -41,15 +41,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
     SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-
-        if (!intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            return;
-        }
-
         if (DEBUG)
             Log.d(TAG, "Received boot completed intent");
-
-        // Call LineageOS functionalities
         DozeUtils.onBootCompleted(context);
         ThermalUtils.startService(context);
         RefreshUtils.startService(context);    
