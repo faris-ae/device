@@ -267,10 +267,6 @@ service adsprpcd /vendor/bin/adsprpcd
    user media
    group media
    disabled
-
-on property:sys.boot_completed=1
-    # STOP EATING MY BATTERY AFTER 100H OF UPTIME FUCK YOU
-    stop statsd
 	
     # Restrict access on this node
     # Only owner can acces this node
