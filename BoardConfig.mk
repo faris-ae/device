@@ -130,8 +130,8 @@ BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
 BOARD_MKBOOTIMG_ARGS += --dtb $(BOARD_PREBUILT_DTBIMAGE_DIR)/01_dtbdump_Qualcomm_Technologies,_Inc._Yupik_SoC.dtb
 else
 TARGET_KERNEL_SOURCE := kernel/xiaomi/redwood
-TARGET_KERNEL_CONFIG := vendor/xiaomi-qgki_defconfig vendor/debugfs.config
-TARGET_KERNEL_CONFIG += vendor/redwood.config
+TARGET_KERNEL_CONFIG := vendor/lahaina-qgki_defconfig vendor/debugfs.config vendor/xiaomi_QGKI.config
+TARGET_KERNEL_CONFIG += vendor/redwood_QGKI.config
 endif
 
 # Partitions
