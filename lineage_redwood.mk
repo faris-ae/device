@@ -12,9 +12,6 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # Pribuilt kernel true/false
 PREBUILT_KERNEL := false
 
-# Gapps
-WITH_GMS := false
-
 # Device props
 TARGET_SUPPORTS_BLUR := true
 TARGET_SUPPORTS_QUICK_TAP := true
