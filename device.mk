@@ -118,7 +118,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml
 
 # Camera
-$(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/miuicamera.mk)
+$(call inherit-product-if-exists, vendor/xiaomi/camera/miuicamera.mk)
 $(call soong_config_set,camera,package_name,com.android.camera)
 
 # Camera Extensions permissions
@@ -150,7 +150,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     dalvik.vm.image-dex2oat-threads=8
 
 # Dolby
-$(call inherit-product, hardware/dolby/dolby.mk)
+$(call inherit-product-if-exists, hardware/dolby/dolby.mk)
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -217,6 +217,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     uinput-fortsense.kl \
     uinput-fpc.kl \
+    uinput-goodix.kl
 
 PRODUCT_PACKAGES += \
     uinput-fortsense.idc \
@@ -242,6 +243,10 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_KERNEL):kernel
 endif
 PRODUCT_ENABLE_UFFD_GC := true
+
+# Keylayout
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/keylayout/uinput-goodix.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-goodix.kl
 
 # Lineage Health
 $(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
@@ -503,46 +508,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_SYSTEM_PROPERTIES += \
     vendor.sys.video.disable.ubwc=1
 
+# Call the Leica Camera setup
+$(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/miuicamera.mk)
+
 -include vendor/lineage-priv/keys/keys.mk
-
-#<!-------- Codec Dolby --------->
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
-
-#<!-------- AxionAOSP Flags ----------->
-# Disable EPPE for better compatibility
-TARGET_DISABLE_EPPE := true
-
-# Inherit LineageOS base configuration
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
-
-# AxionOS Device Info (About Phone)
-AXION_CAMERA_REAR_INFO := 108,8,2
-AXION_CAMERA_FRONT_INFO := 16
-AXION_MAINTAINER := Faris
-AXION_PROCESSOR := Snapdragon_778G
-
-# AxionOS CPU and Performance Settings (Max Fluidez)
-AXION_CPU_SMALL_CORES ?= 0,1,2,3
-AXION_CPU_BIG_CORES ?= 4,5,6,7
-AXION_ALL_CORES ?= 0-7
-
-AXION_CPU_BG ?= 0-3           # Background small cores
-AXION_CPU_SYS_BG ?= 0-3       # System background small cores
-AXION_CPU_FG ?= 0-7           # Foreground uses all cores
-
-AXION_CPU_LIMIT_BG ?= 0-2     # Background heavy tasks
-AXION_CPU_LIMIT_UI ?= 0-5     # UI can use small + 2 big cores
-AXION_CPU_DISPLAY ?= 0-7      # Display uses all cores
-
-# AxionOS dex2oat Optimization (Fast First Boot)
-DEX2OAT_CORES ?= 0-5
-DEX2OAT_THREADS ?= 6
-
-# Device Features
-BYPASS_CHARGE_SUPPORTED ?= false
-PERF_GOV_SUPPORTED ?= true
-PERF_DEFAULT_GOV ?= schedutil
-PERF_ANIM_OVERRIDE ?= true
-HBM_SUPPORTED ?= true
-HBM_NODE ?= /sys/class/backlight/panel0-backlight/hbm_mode
