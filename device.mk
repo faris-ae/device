@@ -102,8 +102,7 @@ PRODUCT_PACKAGES += \
 $(call soong_config_set,camera,override_format_from_reserved,true)
 
 PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.4-service_64
+    android.hardware.camera.provider-service.lineage
 	
 PRODUCT_PACKAGES += \
     android.hidl.memory@1.0-impl
@@ -243,10 +242,6 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_KERNEL):kernel
 endif
 PRODUCT_ENABLE_UFFD_GC := true
-
-# Keylayout
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/keylayout/uinput-goodix.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-goodix.kl
 
 # Lineage Health
 $(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
@@ -500,7 +495,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
     frameworks/native/data/etc/android.hardware.wifi.rtt.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.rtt.xml
 
-
 # WiFi firmware symlinks
 PRODUCT_PACKAGES += \
     firmware_WCNSS_qcom_cfg.ini_symlink
@@ -509,273 +503,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_SYSTEM_PROPERTIES += \
     vendor.sys.video.disable.ubwc=1
 
+#Keys
 -include vendor/lineage-priv/keys/keys.mk
 
+# Incluir flags de AxionOS
+$(call inherit-product-if-exists, $(LOCAL_PATH)/AxionFlags.mk)
 
-Search within code
- 
-‎BoardConfig.mk‎
-+38
--40
-Lines changed: 38 additions & 40 deletions
-Original file line number	Diff line number	Diff line change
-@@ -18,6 +18,7 @@ AB_OTA_PARTITIONS += \
-    vbmeta \
-    vbmeta_system \
-    vendor \
-    vendor_dlkm \
-    vendor_boot
-
-# Architecture
-@@ -39,6 +40,9 @@ ART_BUILD_TARGET_DEBUG := false
-ART_BUILD_HOST_NDEBUG := true
-ART_BUILD_HOST_DEBUG := false
-
-# Assert
-TARGET_OTA_ASSERT_DEVICE := redwood|redwoodin
-# Audio
-AUDIO_FEATURE_ENABLED_EXTENDED_COMPRESS_FORMAT := true
-AUDIO_FEATURE_ENABLED_GKI := true
-@@ -48,20 +52,17 @@ BOARD_SUPPORTS_OPENSOURCE_STHAL := true
-BOARD_SUPPORTS_SOUND_TRIGGER := true
-TARGET_PROVIDES_AUDIO_EXTNS := true
-
-# Assert
-TARGET_OTA_ASSERT_DEVICE := redwood|redwoodin
-# Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth/include
-# Bootloader
-TARGET_NO_BOOTLOADER := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(COMMON_PATH)/bluetooth/include
-
-# Board
-TARGET_BOOTLOADER_BOARD_NAME := redwood
-
-# Bootloader
-TARGET_NO_BOOTLOADER := true
-# Display
-TARGET_SCREEN_DENSITY ?= 411
-TARGET_SCREEN_DENSITY ?= 440
-
-# Filesystem
-TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
-@@ -73,21 +74,18 @@ HWUI_COMPILE_FOR_PERF := true
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
-
-# HIDL
-DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
-DEVICE_MATRIX_FILE += hardware/qcom-caf/common/compatibility_matrix.xml
-
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    $(DEVICE_PATH)/hidl/framework_compatibility_matrix.xml \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml \
-    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml
-    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
-    vendor/lineage/config/device_framework_matrix.xml
-
-DEVICE_MANIFEST_FILE += \
-    $(DEVICE_PATH)/hidl/manifest_lahaina.xml \
-    $(DEVICE_PATH)/hidl/manifest_xiaomi.xml
-
-# Ignore overriding commands errors
-BUILD_BROKEN_DUP_RULES := true
-# Kernel
-BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_IMAGE_NAME := Image
-@@ -99,6 +97,9 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-
-TARGET_KERNEL_ADDITIONAL_FLAGS := TARGET_PRODUCT=$(PRODUCT_DEVICE)
-TARGET_KERNEL_NO_GCC := true
-TARGET_KERNEL_SOURCE := kernel/xiaomi/redwood
-TARGET_KERNEL_CONFIG := vendor/lahaina-qgki_defconfig vendor/debugfs.config vendor/xiaomi_QGKI.config
-TARGET_KERNEL_CONFIG += vendor/redwood_QGKI.config
-
-BOARD_KERNEL_CMDLINE += \
-    androidboot.console=ttyMSM0 \
-@@ -120,39 +121,40 @@ BOARD_KERNEL_CMDLINE += \
-KERNEL_CC := CC=clang
-override KERNEL_TOOLCHAIN_PREFIX_arm := arm-linux-android-
-
-# Kernel
-ifeq ($(PREBUILT_KERNEL),true)
-KERNEL_PATH := device/xiaomi/redwood-kernel
-TARGET_NO_KERNEL_OVERRIDE := true
-TARGET_KERNEL_SOURCE := $(KERNEL_PATH)/kernel-headers
-BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
-BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
-BOARD_MKBOOTIMG_ARGS += --dtb $(BOARD_PREBUILT_DTBIMAGE_DIR)/01_dtbdump_Qualcomm_Technologies,_Inc._Yupik_SoC.dtb
-else
-TARGET_KERNEL_SOURCE := kernel/xiaomi/redwood
-TARGET_KERNEL_CONFIG := vendor/lahaina-qgki_defconfig vendor/debugfs.config vendor/xiaomi_QGKI.config
-TARGET_KERNEL_CONFIG += vendor/redwood_QGKI.config
-endif
-# Kernel modules
-BOOT_KERNEL_MODULES := \
-    adsp_loader_dlkm.ko \
-    apr_dlkm.ko \
-    focaltech_touch.ko \
-    goodix_core.ko \
-    mmhardware_sysfs_dlkm.ko \
-    q6_notifier_dlkm.ko \
-    q6_pdr_dlkm.ko \
-    qti_battery_charger_main.ko \
-    snd_event_dlkm.ko \
-    xiaomi_touch.ko
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(BOOT_KERNEL_MODULES)
-
-# Partitions
-BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
-BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
-BOARD_DTBOIMG_PARTITION_SIZE := 25165824
-BOARD_SUPER_PARTITION_SIZE := 9126805504
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 113254576128
-BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 100663296
-BOARD_USES_METADATA_PARTITION := true
-
-BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
-BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm system system_ext vendor product
-BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_ext vendor vendor_dlkm
-BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9122611200 # BOARD_SUPER_PARTITION_SIZE - 4MB
-
-BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_DTBOIMG_PARTITION_SIZE := 25165824
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 113254576128
-BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
-
-ifeq ($(WITH_GMS),true)
-BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 104857600
-BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 104857600
-BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 104857600
-
-TARGET_COPY_OUT_PRODUCT := product
-TARGET_COPY_OUT_ODM := odm
-TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-TARGET_COPY_OUT_VENDOR := vendor
-TARGET_COPY_OUT_PRODUCT := product
-TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
-
-# Platform
-TARGET_BOARD_PLATFORM := lahaina
-@@ -187,7 +190,7 @@ BOARD_USES_QCOM_HARDWARE := true
-
-# Recovery
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_USES_RECOVERY_AS_BOOT := true
-BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
-TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
-TARGET_USERIMAGES_USE_EXT4 := true
-@@ -210,9 +213,6 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
-# SurfaceFlinger
-TARGET_USE_AOSP_SURFACEFLINGER := true
-
-## torch control ##
-TARGET_CAMERA_SERVICE_EXT_LIB := //$(DEVICE_PATH):libcameraservice_extension.redwood
-# Verified Boot
-BOARD_AVB_ENABLE := true
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
-@@ -225,6 +225,7 @@ BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
-BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
-
-# WiFi
-BOARD_WLAN_DEVICE := qcwcn
-@@ -244,8 +245,5 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
-WPA_SUPPLICANT_VERSION := VER_0_8_X
-
-# Inherit proprietary blobs
-# Include proprietary files
-include vendor/xiaomi/redwood/BoardConfigVendor.mk
-# Firmware
--include vendor/xiaomi/redwood-firmware/BoardConfigVendor.mk
-‎device.mk‎
-+44
--10
-Lines changed: 44 additions & 10 deletions
-Original file line number	Diff line number	Diff line change
-@@ -118,7 +118,7 @@ PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml
-
-# Camera
-$(call inherit-product-if-exists, vendor/xiaomi/camera/miuicamera.mk)
-$(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/miuicamera.mk)
-$(call soong_config_set,camera,package_name,com.android.camera)
-
-# Camera Extensions permissions
-@@ -150,7 +150,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    dalvik.vm.image-dex2oat-threads=8
-
-# Dolby
-$(call inherit-product-if-exists, hardware/dolby/dolby.mk)
-$(call inherit-product, hardware/dolby/dolby.mk)
-
-# DRM
-PRODUCT_PACKAGES += \
-@@ -217,7 +217,6 @@ PRODUCT_PACKAGES += \
-PRODUCT_PACKAGES += \
-    uinput-fortsense.kl \
-    uinput-fpc.kl \
-    uinput-goodix.kl
-
-PRODUCT_PACKAGES += \
-    uinput-fortsense.idc \
-@@ -244,10 +243,6 @@ PRODUCT_COPY_FILES += \
-PRODUCT_ENABLE_UFFD_GC := true
-
-# Keylayout
+#codecs dolby
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/keylayout/uinput-goodix.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/uinput-goodix.kl
-# Lineage Health
-$(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
-
-@@ -508,7 +503,46 @@ PRODUCT_PACKAGES += \
-PRODUCT_SYSTEM_PROPERTIES += \
-    vendor.sys.video.disable.ubwc=1
-
-# Call the Leica Camera setup
-$(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/miuicamera.mk)
--include vendor/lineage-priv/keys/keys.mk
-
-#<!-------- Codec Dolby --------->
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
-
-#<!-------- AxionAOSP Flags ----------->
-# Disable EPPE for better compatibility
-TARGET_DISABLE_EPPE := true
-# Inherit LineageOS base configuration
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
-# AxionOS Device Info (About Phone)
-AXION_CAMERA_REAR_INFO := 108,8,2
-AXION_CAMERA_FRONT_INFO := 16
-AXION_MAINTAINER := Faris
-AXION_PROCESSOR := Snapdragon_778G
-# AxionOS CPU and Performance Settings (Max Fluidez)
-AXION_CPU_SMALL_CORES ?= 0,1,2,3
-AXION_CPU_BIG_CORES ?= 4,5,6,7
-AXION_ALL_CORES ?= 0-7
-AXION_CPU_BG ?= 0-3           # Background small cores
-AXION_CPU_SYS_BG ?= 0-3       # System background small cores
-AXION_CPU_FG ?= 0-7           # Foreground uses all cores
-AXION_CPU_LIMIT_BG ?= 0-2     # Background heavy tasks
-AXION_CPU_LIMIT_UI ?= 0-5     # UI can use small + 2 big cores
-AXION_CPU_DISPLAY ?= 0-7      # Display uses all cores
-# AxionOS dex2oat Optimization (Fast First Boot)
-DEX2OAT_CORES ?= 0-5
-DEX2OAT_THREADS ?= 6
-# Device Features
-BYPASS_CHARGE_SUPPORTED ?= false
-PERF_GOV_SUPPORTED ?= true
-PERF_DEFAULT_GOV ?= schedutil
-PERF_ANIM_OVERRIDE ?= true
-HBM_SUPPORTED ?= true
-HBM_NODE ?= /sys/class/backlight/panel0-backlight/hbm_mode
-endif
+    $(LOCAL_PATH)/media/etc/media_codecs_lahaina.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_lahaina.xml \
+    $(LOCAL_PATH)/media/etc/media_codecs_yupik_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_yupik_v1.xml \
+    $(LOCAL_PATH)/media/etc/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
