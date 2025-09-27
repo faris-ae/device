@@ -743,9 +743,11 @@ PRODUCT_SYSTEM_PROPERTIES += \
 # Call the Leica Camera setup
 $(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/miuicamera.mk)
 -include vendor/lineage-priv/keys/keys.mk
+
 #<!-------- Codec Dolby --------->
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
+
 #<!-------- AxionAOSP Flags ----------->
 # Disable EPPE for better compatibility
 TARGET_DISABLE_EPPE := true
@@ -776,3 +778,4 @@ PERF_DEFAULT_GOV ?= schedutil
 PERF_ANIM_OVERRIDE ?= true
 HBM_SUPPORTED ?= true
 HBM_NODE ?= /sys/class/backlight/panel0-backlight/hbm_mode
+endif
