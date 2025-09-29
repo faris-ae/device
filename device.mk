@@ -19,9 +19,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
-# Enable ViPER4AndroidFX
-$(call inherit-product-if-exists, packages/apps/ViPER4AndroidFX/config.mk)
-
 # MiuiCamera
 $(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/miuicamera.mk)
 
@@ -150,7 +147,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     dalvik.vm.image-dex2oat-threads=8
 
 # Dolby
-$(call inherit-product-if-exists, hardware/dolby/dolby.mk)
+$(call inherit-product, hardware/dolby/dolby.mk)
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -245,6 +242,15 @@ $(call soong_config_set,lineage_health,charging_control_supports_bypass,false)
 
 PRODUCT_PACKAGES += \
     vendor.lineage.health-service.default
+
+# Media
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/media/init.qti.media.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.media.sh \
+    $(LOCAL_PATH)/media/init.qti.media.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.qti.media.rc
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/media/etc/media_codecs_lahaina.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_lahaina.xml \
+    $(LOCAL_PATH)/media/etc/media_codecs_yupik_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_yupik_v1.xml
 
 # Logging
  SPAMMY_LOG_TAGS := \
@@ -507,3 +513,10 @@ PRODUCT_PACKAGES += \
 
 # Call the proprietary setup
 $(call inherit-product, vendor/xiaomi/redwood/redwood-vendor.mk)
+
+# Incluir flags de AxionOS
+$(call inherit-product-if-exists, $(LOCAL_PATH)/AxionFlags.mk)
+
+## torch control ##
+DEVICE_PATH := device/xiaomi/redwood
+TARGET_CAMERA_SERVICE_EXT_LIB := //$(DEVICE_PATH)/configs/camera:libcameraservice_extension.redwood
