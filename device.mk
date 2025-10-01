@@ -518,5 +518,4 @@ $(call inherit-product, vendor/xiaomi/redwood/redwood-vendor.mk)
 $(call inherit-product-if-exists, $(LOCAL_PATH)/AxionFlags.mk)
 
 ## torch control ##
-DEVICE_PATH := device/xiaomi/redwood
-TARGET_CAMERA_SERVICE_EXT_LIB := //$(DEVICE_PATH)/configs/camera:libcameraservice_extension.redwood
+TARGET_CAMERA_SERVICE_EXT_LIB := //device/xiaomi/redwood/configs/camera:libcameraservice_extension.redwood
