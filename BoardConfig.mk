@@ -247,3 +247,6 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Include proprietary files
 include vendor/xiaomi/redwood/BoardConfigVendor.mk
+
+# Camera
+TARGET_CAMERA_SERVICE_EXT_LIB := //$(DEVICE_PATH):libcameraservice_extension.xiaomi_redwood

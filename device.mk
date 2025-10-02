@@ -22,9 +22,6 @@ $(call inherit-product, hardware/qcom-caf/common/common.mk)
 # MiuiCamera
 $(call inherit-product-if-exists, vendor/xiaomi/redwood-miuicamera/miuicamera.mk)
 
-# LeicaCamera
-$(call inherit-product-if-exists, vendor/xiaomi/miuicamera/miuicamera.mk)
-
 # API
 BOARD_SHIPPING_API_LEVEL := 31
 PRODUCT_SHIPPING_API_LEVEL := $(BOARD_SHIPPING_API_LEVEL)
@@ -514,8 +511,3 @@ PRODUCT_PACKAGES += \
 # Call the proprietary setup
 $(call inherit-product, vendor/xiaomi/redwood/redwood-vendor.mk)
 
-# Incluir flags de AxionOS
-$(call inherit-product-if-exists, $(LOCAL_PATH)/AxionFlags.mk)
-
-## torch control ##
-TARGET_CAMERA_SERVICE_EXT_LIB := //device/xiaomi/redwood/configs/camera:libcameraservice_extension.redwood
