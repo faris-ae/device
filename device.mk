@@ -511,3 +511,9 @@ PRODUCT_PACKAGES += \
 # Call the proprietary setup
 $(call inherit-product, vendor/xiaomi/redwood/redwood-vendor.mk)
 
+# Flags
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.paranoid.maintainer=Faris
+
+# Incluir ajustes de rendimiento de Lunaris
+$(call inherit-product, $(LOCAL_PATH)/lunaris_perf.mk)

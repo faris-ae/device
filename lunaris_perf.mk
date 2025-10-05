@@ -1,0 +1,25 @@
+# =========================================================
+# Performance & Boost tuning for LunarisOS
+# =========================================================
+
+LUNARIS_CPU_SMALL_CORES := 0,1,2,3,4,5
+LUNARIS_CPU_BIG_CORES   := 6,7
+LUNARIS_ALL_CORES       := 0-7
+
+LUNARIS_CPU_BG          := 0-3
+LUNARIS_CPU_FG          := 0-7
+LUNARIS_CPU_LIMIT_BG    := 0-2
+LUNARIS_CPU_LIMIT_UI    := 0-6
+LUNARIS_CPU_DISPLAY     := 0-7
+
+LUNARIS_CPU_BOOST_TOUCH  := 4-7
+LUNARIS_CPU_BOOST_LAUNCH := 5-7
+LUNARIS_CPU_BOOST_ANIM   := 4-7
+LUNARIS_CPU_BOOST_SCROLL := 4-7
+
+LUNARIS_CPU_FG_BOOST_MIN_FREQ := 1800000
+LUNARIS_CPU_BG_MIN_FREQ       := 614400
+LUNARIS_CPU_BOOST_DURATION_MS := 500
+
+LUNARIS_GPU_BOOST_MIN_FREQ := 670000000
+LUNARIS_GPU_BOOST_DURATION_MS := 700

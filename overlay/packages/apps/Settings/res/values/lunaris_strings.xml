@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <!--
+      https://github.com/Rayyan-x95
+ -->
+ <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+     <!-- About device screen, build maintainer -->
+     <string name="lunaris_device_message">Poco X5 Pro</string>
+     <string name="lunaris_processor_code_message">Snapdragon® 778G</string>
+     <string name="lunaris_battery_type_message">5000 mAh</string>
+     <string name="lunaris_screen_message">Amoled 120hz</string>
+ </resources>

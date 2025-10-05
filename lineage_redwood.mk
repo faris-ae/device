@@ -34,3 +34,8 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildFlavor=redwood_global-user \
     DeviceName=$(PRODUCT_SYSTEM_DEVICE) \
     DeviceProduct=$(PRODUCT_SYSTEM_NAME)
+
+# Build Flags Lunaris-AOSP
+WITH_GMS := true
+WITH_BCR := true
+TARGET_DEFAULT_PIXEL_LAUNCHER := false
